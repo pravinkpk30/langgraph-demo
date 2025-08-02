@@ -281,6 +281,7 @@ Note for RAG Agent: Place your PDF file in the agents/ directory and update the 
 
 ### 📁 Project Structure
 
+```
 langgraph-demo/
 ├── agents/                    # Agent implementations
 │   ├── 1.SimpleAgentBot.py    # Basic agent
@@ -294,6 +295,7 @@ langgraph-demo/
 ├── .env.example               # Example environment variables
 ├── requirements.txt           # Project dependencies
 └── README.md                  # This file
+```
 
 ### 🛠️ Dependencies
 
