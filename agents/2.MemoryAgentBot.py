@@ -17,7 +17,7 @@ class AgentState(TypedDict):
 # Initialize the language model using Google's Gemini 2.0 Flash
 llm = init_chat_model("google_genai:gemini-2.0-flash")
 
-def process(state: AgentState) -> AgentState:
+def chatbot_node(state: AgentState) -> AgentState:
     """
     Process node that handles the conversation flow.
     Takes the current state, generates a response, and updates the state.
@@ -38,14 +38,20 @@ def process(state: AgentState) -> AgentState:
 graph = StateGraph(AgentState)
 
 # Add the process node to the graph
-graph.add_node("process", process)
+graph.add_node("chatbot", chatbot_node)
 
 # Define the edges of the graph
-graph.add_edge(START, "process")  # From start to process
-graph.add_edge("process", END)    # From process to end
+graph.add_edge(START, "chatbot")  # From start to process
+graph.add_edge("chatbot", END)    # From process to end
 
 # Compile the graph to create an executable agent
 agent = graph.compile()
+
+# Save the graph visualization as an image
+graph_image = agent.get_graph().draw_mermaid_png()
+with open("agents/2_memory_agent_bot.png", "wb") as f:
+    f.write(graph_image)
+print("Graph visualization saved as 'agents/2_memory_agent_bot.png'")
 
 # Initialize an empty list to store conversation history
 conversation_history = []
